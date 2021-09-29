@@ -1,0 +1,23 @@
+﻿using Microsoft.EntityFrameworkCore;
+using MechanicWebAppAPI.Models;
+
+namespace MechanicWebAppAPI.Data
+{
+	public class AppDbContext : DbContext
+	{
+		public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+		{
+			Database.EnsureCreated();
+		}
+
+		public DbSet<User> Users { get; set;}
+
+		public DbSet<Car> Cars { get; set;}
+
+		public DbSet<Repair> Repairs { get; set; }
+		
+		public DbSet<Role> Roles { get; set; }
+		
+		public DbSet<Opinion> Opinions{ get; set; }
+	}
+}
