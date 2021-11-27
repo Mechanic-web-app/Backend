@@ -24,10 +24,12 @@ namespace MechanicWebAppAPI.Models
 
 		public string Phone_number { get; set; }
 
-		[ForeignKey("Role_id")]
-		public int User_role { get; set; }
+		public string User_confirmed { get; set; }
 
-		public Guid Role_id { get; set; }
+		
+		public Guid User_role { get; set; }
+		[ForeignKey("Role_id")]
+		public Role Role_id { get; set; }
 
 	}
 }

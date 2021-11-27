@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Sqlite;
 
 namespace MechanicWebAppAPI.Models
 {
@@ -17,10 +18,10 @@ namespace MechanicWebAppAPI.Models
 
 		public int Opinion_rate { get; set; }
 
+		
+		public Guid Opinion_user_id { get; set; }
 		[ForeignKey("User_id")]
-		public int Opinion_user_id { get; set; }
-
-		public Guid User_id { get; set; }
+		public User User_id { get; set; }
 
 	}
 }

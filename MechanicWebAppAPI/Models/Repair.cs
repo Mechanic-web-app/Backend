@@ -18,15 +18,15 @@ namespace MechanicWebAppAPI.Models
 
 		public string Repair_date { get; set; }
 
+		
+		public Guid Repaired_car_id { get; set; }
 		[ForeignKey("Car_id")]
-		public int Repaired_car_id { get; set; }
+		public Car Car_id { get; set; }
 
-		public Guid Car_id { get; set; }
-
+		
+		public Guid Repaired_car_user_id { get; set; }
 		[ForeignKey("User_id")]
-		public int Repaired_car_user_id { get; set; }
-
-		public Guid User_id { get; set; }
+		public User User_id { get; set; }
 	}
 }
 

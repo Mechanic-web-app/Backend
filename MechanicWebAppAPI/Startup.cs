@@ -42,6 +42,14 @@ namespace MechanicWebAppAPI
                     c.SwaggerDoc("v1", new OpenApiInfo { Title = "MechanicWebAppAPI", Version = "v1" });
                 }
             );
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:8080");
+                    });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +61,7 @@ namespace MechanicWebAppAPI
             }
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
+            app.UseCors();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
