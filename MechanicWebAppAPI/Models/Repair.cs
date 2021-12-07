@@ -21,12 +21,12 @@ namespace MechanicWebAppAPI.Models
 		
 		public Guid Repaired_car_id { get; set; }
 		[ForeignKey("Car_id")]
-		public Car Car_id { get; set; }
+		public Car Car { get; set; }
 
 		
 		public Guid Repaired_car_user_id { get; set; }
 		[ForeignKey("User_id")]
-		public User User_id { get; set; }
+		public User User { get; set; }
 	}
 }
 

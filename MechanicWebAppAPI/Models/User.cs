@@ -29,7 +29,6 @@ namespace MechanicWebAppAPI.Models
 		
 		public Guid User_role { get; set; }
 		[ForeignKey("Role_id")]
-		public Role Role_id { get; set; }
-
-	}
+		public Role Role { get; set; }
+    }
 }
