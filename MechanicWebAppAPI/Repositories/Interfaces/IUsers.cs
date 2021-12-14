@@ -11,7 +11,7 @@ namespace MechanicWebAppAPI.Repositories.Interfaces
 	{
 
 		Task<User> Get(Guid User_id);
-		Task<IEnumerable<User>> GetByEmail(string Email);
+		Task<User> GetByEmail(string Email);
 
 		Task<User> Create(User user);
 
@@ -19,6 +19,5 @@ namespace MechanicWebAppAPI.Repositories.Interfaces
 
 		Task Delete(Guid User_id);
         Task<IEnumerable<User>> Get();
-
     }
 }

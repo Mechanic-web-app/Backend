@@ -43,9 +43,9 @@ namespace MechanicWebAppAPI.Repositories
         {
             return await _context.Users.FindAsync(User_id);
         }
-        public async Task<IEnumerable<User>> GetByEmail(string Email)
+        public async Task<User> GetByEmail(string Email)
         {
-            return (IEnumerable<User>)await _context.Users.FindAsync(Email);
+            return (User)await _context.Users.FirstAsync(i => i.Email == Email);
         }
 
 

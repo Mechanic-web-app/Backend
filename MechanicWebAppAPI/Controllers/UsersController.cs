@@ -32,9 +32,9 @@ namespace MechanicWebAppAPI.Controllers
             return await _userRepository.Get(User_id);
         }
         [HttpGet("GetByEmail/{Email}")]
-        public async Task<IEnumerable<User>> GetByEmail(string Email)
+        public async Task<User> GetByEmail([FromRoute]string Email)
         {
-            return (IEnumerable<User>)await _userRepository.GetByEmail(Email);
+            return await _userRepository.GetByEmail(Email);
         }
 
         [HttpPost]
