@@ -47,7 +47,7 @@ namespace MechanicWebAppAPI
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.WithOrigins("http://localhost:8080");
+                        builder.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader(); ;
                     });
             });
         }
@@ -62,6 +62,8 @@ namespace MechanicWebAppAPI
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
             app.UseCors();
+            app.UseHttpsRedirection();
+            app.UseRouting();
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.

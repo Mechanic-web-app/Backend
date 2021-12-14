@@ -11,24 +11,13 @@ namespace MechanicWebAppAPI.Models
 	{
 		[Key]
 		public Guid User_id { get; set; }
-
-		public string Login { get; set; }
-
+		public string Email { get; set; }
 		public string Password { get; set; }
 
-		public string Email { get; set; }
-
 		public string Name { get; set; }
-
 		public string Lastname { get; set; }
-
 		public string Phone_number { get; set; }
-
 		public string User_confirmed { get; set; }
-
-		
 		public Guid User_role { get; set; }
-		[ForeignKey("Role_id")]
-		public Role Role { get; set; }
     }
 }

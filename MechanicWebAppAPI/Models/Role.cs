@@ -11,7 +11,6 @@ namespace MechanicWebAppAPI.Models
 	{
 		[Key]
 		public Guid Role_id { get; set; }
-
 		public string Role_description { get; set; }
 
 	}

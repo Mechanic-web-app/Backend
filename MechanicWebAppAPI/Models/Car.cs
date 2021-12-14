@@ -21,7 +21,7 @@ namespace MechanicWebAppAPI.Models
 
 		
 		public Guid Car_user_id { get; set; }
-		[ForeignKey("User_id)")]
+		[ForeignKey("User_id")]
 		public User User { get; set; }
     }
 }

@@ -27,10 +27,16 @@ namespace MechanicWebAppAPI.Controllers
             return await _userRepository.Get();
         }
         [HttpGet("{User_id}")]
-        public async Task<ActionResult<User>> GetUsers(Guid User_id)
+        public async Task<User> Get(Guid User_id)
         {
             return await _userRepository.Get(User_id);
         }
+        [HttpGet("GetByEmail/{Email}")]
+        public async Task<IEnumerable<User>> GetByEmail(string Email)
+        {
+            return (IEnumerable<User>)await _userRepository.GetByEmail(Email);
+        }
+
         [HttpPost]
         public async Task<ActionResult<User>> PostUsers([FromBody] User user)
         {
@@ -51,7 +57,7 @@ namespace MechanicWebAppAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{User_id}")]
         public async Task<ActionResult> Delete(Guid User_id)
         {
             var userToDelete = await _userRepository.Get(User_id);

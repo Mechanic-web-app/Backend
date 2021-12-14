@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using MechanicWebAppAPI.Data;
 using MechanicWebAppAPI.Models;
 using MechanicWebAppAPI.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace MechanicWebAppAPI.Repositories
@@ -42,6 +43,12 @@ namespace MechanicWebAppAPI.Repositories
         {
             return await _context.Users.FindAsync(User_id);
         }
+        public async Task<IEnumerable<User>> GetByEmail(string Email)
+        {
+            return (IEnumerable<User>)await _context.Users.FindAsync(Email);
+        }
+
+
 
         public async Task Update(User user)
         {
@@ -49,5 +56,7 @@ namespace MechanicWebAppAPI.Repositories
             await _context.SaveChangesAsync();
 
         }
+
+
     }
 }
