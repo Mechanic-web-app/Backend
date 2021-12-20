@@ -1,9 +1,9 @@
 ﻿
 using MechanicWebAppAPI.Common.Helpers;
 using MechanicWebAppAPI.Common.Jwt;
-using MechanicWebAppAPI.Data.Models;
 using MechanicWebAppAPI.Core.Dtos.User;
 using MechanicWebAppAPI.Core.Interfaces;
+using MechanicWebAppAPI.Data.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -18,24 +18,26 @@ namespace MechanicWebAppAPI.Core.Helpers
 {
     public class JwtHelper : IJwtHelper
     {
+        private readonly AppSettings _appSettings;
         private string _token;
 
-        public JwtHelper(IOptions<AppSettings> AppSettings, IHttpContextAccessor httpContextAccessor)
+        public JwtHelper(IOptions<AppSettings> appSettings, IHttpContextAccessor httpContextAccessor)
         {
-            _appSettings = AppSettings.Value;
+            _appSettings = appSettings.Value;
             _token = httpContextAccessor.HttpContext.Request.Headers["Authorization"];
         }
 
-        public JwtToken GenerateJwtToken(User user)
+        public JwtToken GenerateJwtToken(UserDto user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(Key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             return new JwtToken()
             {

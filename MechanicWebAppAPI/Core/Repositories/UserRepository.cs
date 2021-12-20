@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Database;
 using MechanicWebAppAPI.Data.Models;
-using MechanicWebAppAPI.Core.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MechanicWebAppAPI.Core.Repositories
 {
@@ -47,8 +45,6 @@ namespace MechanicWebAppAPI.Core.Repositories
         {
             return (User)await _context.Users.FirstAsync(i => i.Email == Email);
         }
-
-
 
         public async Task Update(User user)
         {

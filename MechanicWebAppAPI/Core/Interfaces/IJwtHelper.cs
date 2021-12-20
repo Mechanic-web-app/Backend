@@ -1,14 +1,15 @@
 ﻿
 
+using MechanicWebAppAPI.Common.Jwt;
+using MechanicWebAppAPI.Core.Dtos.User;
 using MechanicWebAppAPI.Data.Models;
 using System;
-using MechanicWebAppAPI.Common.Jwt;
 
 namespace MechanicWebAppAPI.Core.Interfaces
 {
     public interface IJwtHelper
     {
-        public JwtToken GenerateJwtToken(User user);
+        public JwtToken GenerateJwtToken(UserDto user);
         public Guid GetUserId();
     }
 }

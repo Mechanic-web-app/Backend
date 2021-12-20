@@ -1,28 +1,23 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MechanicWebAppAPI.Data.Database;
-using MechanicWebAppAPI.Core.Repositories;
-using MechanicWebAppAPI.Core.Interfaces;
-using MechanicWebAppAPI.Core.Helpers;
-using MechanicWebAppAPI.Core.Dtos;
 using MechanicWebAppAPI.Common.Helpers;
+using MechanicWebAppAPI.Core.Helpers;
+using MechanicWebAppAPI.Core.Interfaces;
+using MechanicWebAppAPI.Core.Repositories;
+using MechanicWebAppAPI.Core.Dtos;
+using MechanicWebAppAPI.Data.Database;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Models;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using AutoMapper;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using System.Text;
+using MechanicWebAppAPI.Api.Responses.Factories;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace MechanicWebAppAPI
 {
@@ -35,21 +30,25 @@ namespace MechanicWebAppAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<ICars, CarRepository>();
-            services.AddScoped<IOpinions, OpinionRepository>();
-            services.AddScoped<IUsers, UserRepository>();
-            services.AddScoped<IRoles, RoleRepository>();
-            services.AddScoped<IRepairs, RepairRepository>();
-            services.AddDbContext<AppDbContext>(o => o.UseSqlite("Data source=AppDb.db")); 
-            services.AddControllers();
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            services.AddAutoMapper(typeof(AutoMapping));
+            services.AddHttpContextAccessor();
+            services.AddScoped<ICars, CarRepository>();
+            services.AddScoped<IOpinions, OpinionRepository>();
+            services.AddScoped<IUsers, UserRepository>();
+            services.AddScoped<IRepairs, RepairRepository>();
+            services.AddScoped<IAuthentication, AuthenticationRepository>();
+            services.AddScoped<IJwtHelper, JwtHelper>();
+            services.AddScoped<IApiResponseFactory, ApiResponseFactory>();
+            services.AddDbContext<AppDbContext>(o => o.UseSqlite("Data source=AppDb.db"));
+            services.AddControllers();
+
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -70,7 +69,7 @@ namespace MechanicWebAppAPI
             services.AddSwaggerDocument(document =>
             {
                 document.DocumentName = "swagger";
-                document.Title = "Work Scheduler - API";
+                document.Title = "MechanicWebApp - API";
                 document.Version = "0.1.0";
                 document.OperationProcessors.Add(new OperationSecurityScopeProcessor("jwt"));
                 document.DocumentProcessors.Add(new SecurityDefinitionAppender("jwt", new NSwag.OpenApiSecurityScheme

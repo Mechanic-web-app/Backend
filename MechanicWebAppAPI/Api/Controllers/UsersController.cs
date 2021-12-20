@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MechanicWebAppAPI.Data.Models;
-using MechanicWebAppAPI.Core.Repositories;
+﻿using MechanicWebAppAPI.Api.Responses.Wrappers;
+using MechanicWebAppAPI.Common.Requests.Authentication;
 using MechanicWebAppAPI.Core.Interfaces;
+using MechanicWebAppAPI.Data.Models;
+using MechanicWebAppAPI.Data.Roles;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MechanicWebAppAPI.Controllers
 {
@@ -20,31 +22,30 @@ namespace MechanicWebAppAPI.Controllers
         {
             _userRepository = UserRepository;
         }
-
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<IEnumerable<User>> GetUsers()
         {
             return await _userRepository.Get();
         }
+
         [HttpGet("{User_id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<User> Get(Guid User_id)
         {
             return await _userRepository.Get(User_id);
         }
-        [HttpGet("GetByEmail/{Email}")]
-        public async Task<User> GetByEmail([FromRoute]string Email)
-        {
-            return await _userRepository.GetByEmail(Email);
-        }
 
-        [HttpPost]
-        public async Task<ActionResult<User>> PostUsers([FromBody] User user)
+        /*[HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
+        public async Task<ActionResult<User>> PostUsers(RegisterRequest user)
         {
             var newUser = await _userRepository.Create(user);
-            return CreatedAtAction(nameof(GetUsers), new { id = newUser.User_id }, newUser);
-        }
+            ;
+        }*/
 
         [HttpPut]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<ActionResult> PutUsers(Guid User_id, [FromBody] User user)
         {
             if (User_id != user.User_id)
@@ -56,8 +57,9 @@ namespace MechanicWebAppAPI.Controllers
 
             return NoContent();
         }
-
+        
         [HttpDelete("{User_id}")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<ActionResult> Delete(Guid User_id)
         {
             var userToDelete = await _userRepository.Get(User_id);

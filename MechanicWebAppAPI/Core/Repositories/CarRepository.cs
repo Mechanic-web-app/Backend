@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Database;
 using MechanicWebAppAPI.Data.Models;
-using MechanicWebAppAPI.Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MechanicWebAppAPI.Core.Repositories
 {
