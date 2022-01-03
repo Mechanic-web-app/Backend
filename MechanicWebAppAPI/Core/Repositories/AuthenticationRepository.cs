@@ -62,7 +62,7 @@ namespace MechanicWebAppAPI.Core.Repositories
                     Name =  request.Name,
                     Lastname = request.Lastname,
                     Phone_number = request.Phone_number,
-                    User_confirmed = false,
+                    User_confirmed = true,
                     Token = Guid.Empty,
                     Role = Role.User
                 }).ConfigureAwait(false);

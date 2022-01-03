@@ -1,28 +1,32 @@
-﻿using MechanicWebAppAPI.Core.Interfaces;
+﻿using AutoMapper;
+using MechanicWebAppAPI.Common.Requests.CarRequests;
+using MechanicWebAppAPI.Core.Dtos.Car;
+using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Database;
 using MechanicWebAppAPI.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MechanicWebAppAPI.Core.Repositories
 {
-    public class CarRepository : ICars
+    public class CarRepository : BaseRepository, ICars
     {
-        private readonly AppDbContext _context;
 
-        public CarRepository(AppDbContext context)
+        public CarRepository(AppDbContext context,IMapper mapper) : base(context,mapper)
         {
-            _context = context;
         }
 
-        public async Task<Car> Create(Car car)
+        public async Task<CarDto> Create(CarAddRequest car)
         {
-            _context.Cars.Add(car);
+            var carDto = _mapper.Map<CarAddRequest, Car>(car);
+            carDto.Car_id = Guid.NewGuid();
+            carDto.Car_user_id = Guid.Parse(car.Car_user_id);
+            _context.Cars.Add(carDto);
             await _context.SaveChangesAsync();
-
-            return car;
+            return _mapper.Map<Car, CarDto>(carDto);
         }
 
         public async Task Delete(Guid Car_id)
@@ -32,14 +36,18 @@ namespace MechanicWebAppAPI.Core.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Car>> Get()
+        public async Task<IEnumerable<CarDto>> Get()
         {
-            return await _context.Cars.ToListAsync();
+            return await _context.Cars.Select(car => _mapper.Map<Car, CarDto>(car)).ToListAsync();
         }
-
         public async Task<Car> Get(Guid Car_id)
         {
             return await _context.Cars.FindAsync(Car_id);
+        }
+
+        public async Task<IEnumerable<CarDto>> GetByUser(Guid Car_user_id)
+        {
+            return await _context.Cars.Where(x => x.Car_user_id == Car_user_id).Select(car => _mapper.Map<Car, CarDto>(car)).ToListAsync();
         }
 
         public async Task Update(Car car)

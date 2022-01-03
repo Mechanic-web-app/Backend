@@ -1,4 +1,6 @@
-﻿using MechanicWebAppAPI.Core.Interfaces;
+﻿using MechanicWebAppAPI.Common.Requests.OpinionRequests;
+using MechanicWebAppAPI.Core.Dtos.Opinion;
+using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,7 +21,7 @@ namespace MechanicWebAppAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Opinion>> GetOpinions()
+        public async Task<IEnumerable<OpinionDto>> GetOpinions()
         {
             return await _opinionRepository.Get();
         }
@@ -29,10 +31,9 @@ namespace MechanicWebAppAPI.Controllers
             return await _opinionRepository.Get(Opinion_id);
         }
         [HttpPost]
-        public async Task<ActionResult<Opinion>> PostOpinions([FromBody] Opinion opinion)
+        public async Task<ActionResult<OpinionDto>> PostOpinions([FromBody] OpinionAddRequest opinion)
         {
-            var newOpinion = await _opinionRepository.Create(opinion);
-            return CreatedAtAction(nameof(GetOpinions), new { id = newOpinion.Opinion_id }, newOpinion);
+            return await _opinionRepository.Create(opinion);
         }
 
         [HttpPut]

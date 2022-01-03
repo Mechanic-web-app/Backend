@@ -1,28 +1,31 @@
-﻿using MechanicWebAppAPI.Core.Interfaces;
+﻿using AutoMapper;
+using MechanicWebAppAPI.Common.Requests.OpinionRequests;
+using MechanicWebAppAPI.Core.Dtos.Opinion;
+using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Database;
 using MechanicWebAppAPI.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MechanicWebAppAPI.Core.Repositories
 {
-    public class OpinionRepository : IOpinions
+    public class OpinionRepository : BaseRepository, IOpinions
     {
-        private readonly AppDbContext _context;
 
-        public OpinionRepository(AppDbContext context)
+        public OpinionRepository(AppDbContext context, IMapper mapper) : base(context, mapper)
         {
-            _context = context;
         }
 
-        public async Task<Opinion> Create(Opinion opinion)
+        public async Task<OpinionDto> Create(OpinionAddRequest opinion)
         {
-            _context.Opinions.Add(opinion);
+            var opinionDto = _mapper.Map<OpinionAddRequest, Opinion>(opinion);
+            opinionDto.Opinion_id = Guid.NewGuid();
+            _context.Opinions.Add(opinionDto);
             await _context.SaveChangesAsync();
-
-            return opinion;
+            return _mapper.Map<Opinion, OpinionDto>(opinionDto);
         }
 
         public async Task Delete(Guid Opinion_id)
@@ -32,9 +35,9 @@ namespace MechanicWebAppAPI.Core.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Opinion>> Get()
+        public async Task<IEnumerable<OpinionDto>> Get()
         {
-            return await _context.Opinions.ToListAsync();
+            return await _context.Opinions.Select(opinion => _mapper.Map<Opinion, OpinionDto>(opinion)).ToListAsync();
         }
 
         public async Task<Opinion> Get(Guid Opinion_id)

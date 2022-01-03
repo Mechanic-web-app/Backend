@@ -1,25 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MechanicWebAppAPI.Data.Models
+namespace MechanicWebAppAPI.Common.Requests.RepairRequests
 {
-
-    public class Repair
+    public class RepairAddRequest
     {
-        [Key]
-        public Guid Repair_id { get; set; }
-
+        [Required]
         public string Repair_description { get; set; }
-
+        [Required]
         public int Repair_cost { get; set; }
-
+        [Required]
         public string Repair_date { get; set; }
-
-
+        [Required]
         public Guid Repaired_car_id { get; set; }
-        public Car Car { get; set; }
-
     }
 }
-

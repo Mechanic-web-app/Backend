@@ -46,7 +46,8 @@ namespace MechanicWebAppAPI
             services.AddScoped<IAuthentication, AuthenticationRepository>();
             services.AddScoped<IJwtHelper, JwtHelper>();
             services.AddScoped<IApiResponseFactory, ApiResponseFactory>();
-            services.AddDbContext<AppDbContext>(o => o.UseSqlite("Data source=AppDb.db"));
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
             services.AddControllers();
 
             services.AddAuthentication(x =>
@@ -90,7 +91,7 @@ namespace MechanicWebAppAPI
                     });
             });
         }
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -112,6 +113,7 @@ namespace MechanicWebAppAPI
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();
+            DatabaseSeeder.SeedData(context);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

@@ -1,4 +1,5 @@
 ﻿using MechanicWebAppAPI.Common.Requests.Authentication;
+using MechanicWebAppAPI.Core.Dtos.User;
 using MechanicWebAppAPI.Data.Models;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,11 @@ namespace MechanicWebAppAPI.Core.Interfaces
     public interface IUsers
     {
 
+        Task<IEnumerable<UserDto>> GetById(Guid User_id);
         Task<User> Get(Guid User_id);
-        Task<User> GetByEmail(string Email);
         Task Update(User user);
 
         Task Delete(Guid User_id);
-        Task<IEnumerable<User>> Get();
-       // Task Create(RegisterRequest user);
+        Task<IEnumerable<UserDto>> Get();
     }
 }

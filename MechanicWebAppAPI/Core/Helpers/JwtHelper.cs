@@ -35,6 +35,10 @@ namespace MechanicWebAppAPI.Core.Helpers
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
+                    new Claim("Email", user.Email ),
+                    new Claim("Name", user.Name ),
+                    new Claim("Lastname", user.Lastname ),
+                    new Claim("Role", user.Role )
                 }),
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

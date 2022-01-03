@@ -8,6 +8,7 @@ namespace MechanicWebAppAPI.Core.Dtos.User
         public string Email { get; set; }
         public string Name { get; set; }
         public string Lastname { get; set; }
-        public string User_role { get; set; }
+        public string Role { get; set; }
     }
+    
 }

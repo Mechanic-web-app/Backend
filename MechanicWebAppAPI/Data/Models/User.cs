@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace MechanicWebAppAPI.Data.Models
@@ -16,5 +17,8 @@ namespace MechanicWebAppAPI.Data.Models
         public bool User_confirmed { get; set; }
         public string Role { get; set; }
         public Guid Token { get; set; }
+        public ICollection<Car> Cars { get; set; }
+        public virtual Opinion Opinion { get; set; }
+
     }
 }

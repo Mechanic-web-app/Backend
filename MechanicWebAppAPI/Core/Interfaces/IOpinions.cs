@@ -1,4 +1,6 @@
-﻿using MechanicWebAppAPI.Data.Models;
+﻿using MechanicWebAppAPI.Common.Requests.OpinionRequests;
+using MechanicWebAppAPI.Core.Dtos.Opinion;
+using MechanicWebAppAPI.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,11 +9,11 @@ namespace MechanicWebAppAPI.Core.Interfaces
 {
     public interface IOpinions
     {
-        Task<IEnumerable<Opinion>> Get();
+        Task<IEnumerable<OpinionDto>> Get();
 
         Task<Opinion> Get(Guid Opinion_id);
 
-        Task<Opinion> Create(Opinion opinion);
+        Task<OpinionDto> Create(OpinionAddRequest opinion);
 
         Task Update(Opinion opinion);
 

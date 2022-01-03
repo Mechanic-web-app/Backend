@@ -1,20 +1,21 @@
-﻿using MechanicWebAppAPI.Core.Interfaces;
+﻿using AutoMapper;
+using MechanicWebAppAPI.Core.Dtos.User;
+using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Database;
 using MechanicWebAppAPI.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MechanicWebAppAPI.Core.Repositories
 {
-    public class UserRepository : IUsers
+    public class UserRepository : BaseRepository, IUsers
     {
-        private readonly AppDbContext _context;
 
-        public UserRepository(AppDbContext context)
+        public UserRepository(AppDbContext context, IMapper mapper) : base(context, mapper)
         {
-            _context = context;
         }
 
         public async Task<User> Create(User user)
@@ -32,18 +33,19 @@ namespace MechanicWebAppAPI.Core.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<User>> Get()
+        public async Task<IEnumerable<UserDto>> Get()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users.Select(user => _mapper.Map<User, UserDto>(user)).ToListAsync();
         }
 
         public async Task<User> Get(Guid User_id)
         {
-            return await _context.Users.FindAsync(User_id);
+           return await _context.Users.FindAsync(User_id);
         }
-        public async Task<User> GetByEmail(string Email)
+
+        public async Task<IEnumerable<UserDto>> GetById(Guid User_id)
         {
-            return (User)await _context.Users.FirstAsync(i => i.Email == Email);
+            return await _context.Users.Where(x => x.User_id == User_id).Select(user => _mapper.Map<User, UserDto>(user)).ToListAsync();
         }
 
         public async Task Update(User user)

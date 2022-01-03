@@ -1,5 +1,6 @@
 ﻿using MechanicWebAppAPI.Api.Responses.Wrappers;
 using MechanicWebAppAPI.Common.Requests.Authentication;
+using MechanicWebAppAPI.Core.Dtos.User;
 using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Models;
 using MechanicWebAppAPI.Data.Roles;
@@ -24,25 +25,17 @@ namespace MechanicWebAppAPI.Controllers
         }
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
-        public async Task<IEnumerable<User>> GetUsers()
+        public async Task<IEnumerable<UserDto>> GetUsers()
         {
             return await _userRepository.Get();
         }
 
         [HttpGet("{User_id}")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
-        public async Task<User> Get(Guid User_id)
+        public async Task<IEnumerable<UserDto>> Get(Guid User_id)
         {
-            return await _userRepository.Get(User_id);
+            return await _userRepository.GetById(User_id);
         }
-
-        /*[HttpPost]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
-        public async Task<ActionResult<User>> PostUsers(RegisterRequest user)
-        {
-            var newUser = await _userRepository.Create(user);
-            ;
-        }*/
 
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]

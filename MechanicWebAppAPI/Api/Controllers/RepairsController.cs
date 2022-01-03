@@ -1,4 +1,6 @@
-﻿using MechanicWebAppAPI.Core.Interfaces;
+﻿using MechanicWebAppAPI.Common.Requests.RepairRequests;
+using MechanicWebAppAPI.Core.Dtos.Repair;
+using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,7 +21,7 @@ namespace MechanicWebAppAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Repair>> GetRepairs()
+        public async Task<IEnumerable<RepairDto>> GetRepairs()
         {
             return await _repairRepository.Get();
         }
@@ -28,11 +30,15 @@ namespace MechanicWebAppAPI.Controllers
         {
             return await _repairRepository.Get(Repair_id);
         }
-        [HttpPost]
-        public async Task<ActionResult<Repair>> PostRepairs([FromBody] Repair repair)
+        [HttpGet("byCar/{Repaired_car_id}")]
+        public async Task<IEnumerable<RepairDto>> GetByUser(Guid Repaired_car_id)
         {
-            var newRepair = await _repairRepository.Create(repair);
-            return CreatedAtAction(nameof(GetRepairs), new { id = newRepair.Repair_id }, newRepair);
+            return await _repairRepository.GetByCar(Repaired_car_id);
+        }
+        [HttpPost]
+        public async Task<ActionResult<RepairDto>> PostRepairs([FromBody] RepairAddRequest repair)
+        {
+            return await _repairRepository.Create(repair);
         }
 
         [HttpPut]

@@ -7,37 +7,36 @@ namespace MechanicWebAppAPI.Data.Database
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            Database.EnsureCreated();
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
-        public DbSet<Repair> Repairs { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
+        public DbSet<Repair> Repairs { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Car>()
-               .HasOne(p => p.User)
-               .WithMany()
-               .HasForeignKey(p => p.Car_user_id);
-            modelBuilder.Entity<Opinion>()
-               .HasOne(p => p.User)
-               .WithMany()
-               .HasForeignKey(p => p.Opinion_user_id);
-            modelBuilder.Entity<Repair>()
-               .HasOne(p => p.User)
-               .WithMany()
-               .HasForeignKey(p => p.Repaired_car_user_id);
-            modelBuilder.Entity<Repair>()
-               .HasOne(p => p.User)
-               .WithMany()
-               .HasForeignKey(p => p.Repaired_car_user_id);
-            modelBuilder.Entity<Repair>()
-               .HasOne(p => p.Car)
-               .WithMany()
-               .HasForeignKey(p => p.Repaired_car_id);
             modelBuilder.Entity<User>()
-            .HasIndex(u => u.Email)
-            .IsUnique();
+               .HasMany(p => p.Cars)
+               .WithOne(b => b.User)
+               .HasForeignKey(p => p.Car_user_id)
+               .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<User>()
+                .HasOne(s => s.Opinion)
+                .WithOne(p => p.User)
+                .HasForeignKey<Opinion>(s => s.Opinion_user_id)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Car>()
+               .HasMany(p => p.Repairs)
+               .WithOne(b => b.Car)
+               .HasForeignKey(p => p.Repaired_car_id)
+               .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
+            modelBuilder.Entity<Opinion>()
+                .HasIndex(p => p.Opinion_user_id)
+                .IsUnique();
+
         }
     }
 }

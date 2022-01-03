@@ -1,4 +1,6 @@
-﻿using MechanicWebAppAPI.Core.Interfaces;
+﻿using MechanicWebAppAPI.Common.Requests.CarRequests;
+using MechanicWebAppAPI.Core.Dtos.Car;
+using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -19,20 +21,24 @@ namespace MechanicWebAppAPI.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Car>> GetCars()
+        public async Task<IEnumerable<CarDto>> GetCars()
         {
             return await _carRepository.Get();
         }
         [HttpGet("{Car_id}")]
-        public async Task<ActionResult<Car>> GetCars(Guid Car_id)
+        public async Task<ActionResult<Car>> Get(Guid Car_id)
         {
             return await _carRepository.Get(Car_id);
         }
-        [HttpPost]
-        public async Task<ActionResult<Car>> PostCars([FromBody] Car car)
+        [HttpGet("byUser/{Car_user_id}")]
+        public async Task<IEnumerable<CarDto>> GetByUser(Guid Car_user_id)
         {
-            var newCar = await _carRepository.Create(car);
-            return CreatedAtAction(nameof(GetCars), new { id = newCar.Car_id }, newCar);
+            return await _carRepository.GetByUser(Car_user_id);
+        }
+        [HttpPost]
+        public async Task<ActionResult<CarDto>> PostCars([FromBody] CarAddRequest car)
+        { 
+            return await _carRepository.Create(car);
         }
 
         [HttpPut]
