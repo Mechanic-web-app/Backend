@@ -1,6 +1,5 @@
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\appsettings.Development.json
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\appsettings.json
-G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\MechanicWebAppAPI.exe
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\MechanicWebAppAPI.deps.json
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\MechanicWebAppAPI.runtimeconfig.json
@@ -80,4 +79,6 @@ G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\stat
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\MechanicWebAppAPI.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\MechanicWebAppAPI.pdb
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\MechanicWebAppAPI.genruntimeconfig.cache
-G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\MechanicWebAppAPI.csprojAssemblyReference.cache
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\MechanicWebAppAPI.csproj.AssemblyReference.cache
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\MechanicWebAppAPI.GeneratedMSBuildEditorConfig.editorconfig
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\obj\Debug\netcoreapp3.1\scopedcss\bundle\MechanicWebAppAPI.styles.css

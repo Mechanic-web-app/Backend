@@ -62,9 +62,32 @@ namespace MechanicWebAppAPI.Core.Repositories
                     Name =  request.Name,
                     Lastname = request.Lastname,
                     Phone_number = request.Phone_number,
-                    User_confirmed = true,
+                    User_confirmed = false,
                     Token = Guid.Empty,
                     Role = Role.User
+                }).ConfigureAwait(false);
+
+                userResult.Entity.Password = _passwordHasher.HashPassword(userResult.Entity, request.Password);
+
+                await _context.SaveChangesAsync().ConfigureAwait(false);
+                return userResult.Entity.User_id;
+            }
+            throw new ServiceLayerException(HttpStatusCode.BadRequest, "Email is already used");
+        }
+        public async Task<Guid> RegisterByAdmin(RegisterByAdminRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(i => i.Email == request.Email).ConfigureAwait(false);
+            if (user == null)
+            {
+                var userResult = await _context.Users.AddAsync(new User()
+                {
+                    Email = request.Email,
+                    Name = request.Name,
+                    Lastname = request.Lastname,
+                    Phone_number = request.Phone_number,
+                    User_confirmed = true,
+                    Token = Guid.Empty,
+                    Role = request.Role
                 }).ConfigureAwait(false);
 
                 userResult.Entity.Password = _passwordHasher.HashPassword(userResult.Entity, request.Password);

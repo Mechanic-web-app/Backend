@@ -24,7 +24,8 @@ namespace MechanicWebAppAPI.Data.Database
                     Name= "Admin",
                     Lastname= "Admin",
                     User_confirmed = true,
-                    Token = Guid.Empty
+                    Token = Guid.Empty,
+                    Phone_number = "123456789"
 
                 });
                 var user2 = context.Users.Add(new User()
@@ -35,7 +36,8 @@ namespace MechanicWebAppAPI.Data.Database
                     Name = "Employee",
                     Lastname = "Employee",
                     User_confirmed = true,
-                    Token = Guid.Empty
+                    Token = Guid.Empty,
+                    Phone_number = "123456789"
                 });
                 var user3 = context.Users.Add(new User()
                 {
@@ -45,7 +47,8 @@ namespace MechanicWebAppAPI.Data.Database
                     Name = "Test",
                     Lastname = "User",
                     User_confirmed = true,
-                    Token = Guid.Empty
+                    Token = Guid.Empty,
+                    Phone_number = "123456789"
                 });
                 context.SaveChangesAsync().Wait();
             }

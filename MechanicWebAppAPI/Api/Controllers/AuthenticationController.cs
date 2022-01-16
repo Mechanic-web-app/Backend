@@ -22,6 +22,10 @@ namespace MechanicWebAppAPI.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<JwtToken>))]
         public async Task<IActionResult> Register(RegisterRequest request) => CreateSuccessResponse(await _authenticationRepository.Register(request).ConfigureAwait(false));
 
+        [HttpPost("registerByAdmin")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<JwtToken>))]
+        public async Task<IActionResult> RegisterByAdmin(RegisterByAdminRequest request) => CreateSuccessResponse(await _authenticationRepository.RegisterByAdmin(request).ConfigureAwait(false));
+
         [HttpPost("login")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<JwtToken>))]
         public async Task<IActionResult> LogIn(LoginRequest request) => CreateSuccessResponse(await _authenticationRepository.Login(request).ConfigureAwait(false));

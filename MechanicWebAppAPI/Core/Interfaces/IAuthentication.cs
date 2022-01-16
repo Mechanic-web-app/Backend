@@ -9,6 +9,7 @@ namespace MechanicWebAppAPI.Core.Interfaces
     {
         Task<JwtToken> Login(LoginRequest request);
         Task<Guid> Register(RegisterRequest request);
+        Task<Guid> RegisterByAdmin(RegisterByAdminRequest request);
         Task<bool> ChangePassword(ChangePasswordRequest request);
     }
 }

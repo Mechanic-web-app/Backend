@@ -24,21 +24,18 @@ namespace MechanicWebAppAPI.Controllers
             _userRepository = UserRepository;
         }
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<IEnumerable<UserDto>> GetUsers()
         {
             return await _userRepository.Get();
         }
 
         [HttpGet("{User_id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<IEnumerable<UserDto>> Get(Guid User_id)
         {
             return await _userRepository.GetById(User_id);
         }
 
         [HttpPut]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<ActionResult> PutUsers(Guid User_id, [FromBody] User user)
         {
             if (User_id != user.User_id)
@@ -52,7 +49,6 @@ namespace MechanicWebAppAPI.Controllers
         }
         
         [HttpDelete("{User_id}")]
-        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ApiSuccessResponse<bool>))]
         public async Task<ActionResult> Delete(Guid User_id)
         {
             var userToDelete = await _userRepository.Get(User_id);

@@ -11,5 +11,6 @@ namespace MechanicWebAppAPI.Common.Requests.Authentication
         public string Lastname { get; set; }
         [Required]
         public string Phone_number { get; set; }
+
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MechanicWebAppAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220103193547_init")]
+    [Migration("20220114204255_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,8 +81,8 @@ namespace MechanicWebAppAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Repair_cost")
-                        .HasColumnType("int");
+                    b.Property<float>("Repair_cost")
+                        .HasColumnType("real");
 
                     b.Property<string>("Repair_date")
                         .HasColumnType("nvarchar(max)");

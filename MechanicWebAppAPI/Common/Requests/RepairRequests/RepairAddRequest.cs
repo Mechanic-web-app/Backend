@@ -11,7 +11,7 @@ namespace MechanicWebAppAPI.Common.Requests.RepairRequests
         [Required]
         public string Repair_description { get; set; }
         [Required]
-        public int Repair_cost { get; set; }
+        public decimal Repair_cost { get; set; }
         [Required]
         public string Repair_date { get; set; }
         [Required]

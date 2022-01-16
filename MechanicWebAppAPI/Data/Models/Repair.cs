@@ -12,7 +12,7 @@ namespace MechanicWebAppAPI.Data.Models
 
         public string Repair_description { get; set; }
 
-        public int Repair_cost { get; set; }
+        public decimal Repair_cost { get; set; }
 
         public string Repair_date { get; set; }
 

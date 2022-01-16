@@ -75,7 +75,7 @@ namespace MechanicWebAppAPI.Migrations
                 {
                     Repair_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Repair_description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Repair_cost = table.Column<int>(type: "int", nullable: false),
+                    Repair_cost = table.Column<float>(type: "real", nullable: false),
                     Repair_date = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Repaired_car_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
