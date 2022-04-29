@@ -1,5 +1,6 @@
 ﻿using MechanicWebAppAPI.Api.Responses.Wrappers;
 using MechanicWebAppAPI.Common.Requests.Authentication;
+using MechanicWebAppAPI.Common.Requests.UserRequests;
 using MechanicWebAppAPI.Core.Dtos.User;
 using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Models;
@@ -34,29 +35,28 @@ namespace MechanicWebAppAPI.Controllers
         {
             return await _userRepository.GetById(User_id);
         }
-
-        [HttpPut]
-        public async Task<ActionResult> PutUsers(Guid User_id, [FromBody] User user)
+        [HttpGet("byNotConfirmed/{User_confirmed}")]
+        public async Task<IEnumerable<UserDto>> GetByNotConfirmed(bool User_confirmed)
         {
-            if (User_id != user.User_id)
-            {
-                return BadRequest();
-            }
+            return await _userRepository.GetByNotConfirmed(User_confirmed);
+        }
 
-            await _userRepository.Update(user);
+        [HttpPut("{User_id}")]
+        public async Task<bool> Update([FromRoute] Guid User_id, ConfirmUserRequest request)
+        {
+            return await _userRepository.Update(User_id, request);
 
-            return NoContent();
         }
         
         [HttpDelete("{User_id}")]
-        public async Task<ActionResult> Delete(Guid User_id)
+        public async Task<bool> Delete(Guid User_id)
         {
             var userToDelete = await _userRepository.Get(User_id);
             if (userToDelete == null)
-                return NotFound();
+                return false;
 
             await _userRepository.Delete(userToDelete.User_id);
-            return NoContent();
+            return true;
         }
     }
 }

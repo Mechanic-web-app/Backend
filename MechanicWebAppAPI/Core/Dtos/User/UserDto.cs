@@ -10,6 +10,9 @@ namespace MechanicWebAppAPI.Core.Dtos.User
         public string Lastname { get; set; }
         public string Role { get; set; }
         public string Phone_number { get; set; }
+
+        public bool User_confirmed { get; set; }
+
     }
     
 }

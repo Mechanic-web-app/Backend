@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using MechanicWebAppAPI.Common.CustomExceptions;
+using MechanicWebAppAPI.Common.Requests.UserRequests;
 using MechanicWebAppAPI.Core.Dtos.User;
 using MechanicWebAppAPI.Core.Interfaces;
 using MechanicWebAppAPI.Data.Database;
@@ -7,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace MechanicWebAppAPI.Core.Repositories
@@ -26,11 +29,12 @@ namespace MechanicWebAppAPI.Core.Repositories
             return user;
         }
 
-        public async Task Delete(Guid User_id)
+        public async Task<bool> Delete(Guid User_id)
         {
             var userToDelete = await _context.Users.FindAsync(User_id);
             _context.Users.Remove(userToDelete);
             await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<UserDto>> Get()
@@ -48,11 +52,19 @@ namespace MechanicWebAppAPI.Core.Repositories
             return await _context.Users.Where(x => x.User_id == User_id).Select(user => _mapper.Map<User, UserDto>(user)).ToListAsync();
         }
 
-        public async Task Update(User user)
+        public async Task<IEnumerable<UserDto>> GetByNotConfirmed(bool User_confirmed)
         {
-            _context.Entry(user).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            return await _context.Users.Where(x => x.User_confirmed == false).Select(user => _mapper.Map<User, UserDto>(user)).ToListAsync();
+        }
+        public async Task<bool> Update(Guid User_id, ConfirmUserRequest request)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.User_id == User_id);
+            if (user == null)
+                throw new ServiceLayerException(HttpStatusCode.NotFound, "User not found");
 
+            user.User_confirmed = request.User_confirmed;
+            await _context.SaveChangesAsync().ConfigureAwait(false);
+            return true;
         }
 
 
