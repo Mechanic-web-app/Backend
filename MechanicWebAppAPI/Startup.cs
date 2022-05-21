@@ -18,6 +18,8 @@ using NSwag.Generation.Processors.Security;
 using System.Text;
 using MechanicWebAppAPI.Api.Responses.Factories;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using MechanicWebAppAPI.Api.Hubs;
+using Microsoft.AspNetCore.HttpOverrides;
 
 namespace MechanicWebAppAPI
 {
@@ -34,7 +36,14 @@ namespace MechanicWebAppAPI
         {
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
-
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:8080");
+                    });
+            });
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAutoMapper(typeof(AutoMapping));
@@ -46,10 +55,12 @@ namespace MechanicWebAppAPI
             services.AddScoped<IAuthentication, AuthenticationRepository>();
             services.AddScoped<IJwtHelper, JwtHelper>();
             services.AddScoped<IApiResponseFactory, ApiResponseFactory>();
+            services.AddScoped<IChatRoom, ChatRoomRepository>();
+            services.AddScoped<IChat, ChatRepository>();
             services.AddDbContext<AppDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("AppDbContext")));
             services.AddControllers();
-
+            services.AddSignalR();
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -82,14 +93,7 @@ namespace MechanicWebAppAPI
                 }));
                 document.GenerateEnumMappingDescription = true;
             });
-            services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(
-                    builder =>
-                    {
-                        builder.WithOrigins("http://localhost:8080").AllowAnyMethod().AllowAnyHeader(); ;
-                    });
-            });
+
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext context)
         {
@@ -104,19 +108,22 @@ namespace MechanicWebAppAPI
                 options.PostProcess = (document, _) => document.Schemes.Add(NSwag.OpenApiSchema.Https);
             });
 
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedProto
+            });
             app.UseSwaggerUi3(options => options.DocumentPath = "/swagger/v1/swagger.json");
-
+            app.UseRouting();
             app.UseCors();
             app.UseHttpsRedirection();
-            app.UseRouting();
 
-            app.UseHttpsRedirection();
-            app.UseRouting();
             app.UseAuthorization();
             DatabaseSeeder.SeedData(context);
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+
+                endpoints.MapHub<ChatHub>("/hubs/chat");
             });
         }
     }

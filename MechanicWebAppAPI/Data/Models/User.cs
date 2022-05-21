@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -17,8 +18,14 @@ namespace MechanicWebAppAPI.Data.Models
         public bool User_confirmed { get; set; }
         public string Role { get; set; }
         public Guid Token { get; set; }
+        [JsonIgnore]
         public ICollection<Car> Cars { get; set; }
+        [JsonIgnore]
         public virtual Opinion Opinion { get; set; }
+        [JsonIgnore]
+        public virtual ICollection<Message> Messages { get; set; }
+
+
 
     }
 }

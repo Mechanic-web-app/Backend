@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MechanicWebAppAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220114205540_init2")]
-    partial class init2
+    [Migration("20220514133216_init1")]
+    partial class init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,37 @@ namespace MechanicWebAppAPI.Migrations
                     b.HasIndex("Car_user_id");
 
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Message", b =>
+                {
+                    b.Property<Guid>("Message_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MessageContext")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("MessageSender")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("MessageTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("UserLastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Message_id");
+
+                    b.HasIndex("MessageSender");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Opinion", b =>
@@ -150,6 +181,17 @@ namespace MechanicWebAppAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Message", b =>
+                {
+                    b.HasOne("MechanicWebAppAPI.Data.Models.User", "User")
+                        .WithMany("Messages")
+                        .HasForeignKey("MessageSender")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Opinion", b =>
                 {
                     b.HasOne("MechanicWebAppAPI.Data.Models.User", "User")
@@ -180,6 +222,8 @@ namespace MechanicWebAppAPI.Migrations
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.User", b =>
                 {
                     b.Navigation("Cars");
+
+                    b.Navigation("Messages");
 
                     b.Navigation("Opinion");
                 });

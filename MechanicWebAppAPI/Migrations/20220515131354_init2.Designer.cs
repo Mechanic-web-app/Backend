@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MechanicWebAppAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220114204255_init")]
-    partial class init
+    [Migration("20220515131354_init2")]
+    partial class init2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -44,6 +44,59 @@ namespace MechanicWebAppAPI.Migrations
                     b.HasIndex("Car_user_id");
 
                     b.ToTable("Cars");
+                });
+
+            modelBuilder.Entity("MechanicWebAppAPI.Data.Models.ChatRoom", b =>
+                {
+                    b.Property<Guid>("Room_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("RoomName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Room_id");
+
+                    b.ToTable("ChatRooms");
+                });
+
+            modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Message", b =>
+                {
+                    b.Property<Guid>("Message_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("MessageContext")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("MessageReceiver")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MessageSender")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("MessageTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid>("Room_id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserLastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Message_id");
+
+                    b.HasIndex("MessageSender");
+
+                    b.HasIndex("Room_id");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Opinion", b =>
@@ -81,8 +134,8 @@ namespace MechanicWebAppAPI.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<float>("Repair_cost")
-                        .HasColumnType("real");
+                    b.Property<decimal>("Repair_cost")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Repair_date")
                         .HasColumnType("nvarchar(max)");
@@ -150,6 +203,25 @@ namespace MechanicWebAppAPI.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Message", b =>
+                {
+                    b.HasOne("MechanicWebAppAPI.Data.Models.User", "User")
+                        .WithMany("Messages")
+                        .HasForeignKey("MessageSender")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MechanicWebAppAPI.Data.Models.ChatRoom", "ChatRoom")
+                        .WithMany("Messages")
+                        .HasForeignKey("Room_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ChatRoom");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Opinion", b =>
                 {
                     b.HasOne("MechanicWebAppAPI.Data.Models.User", "User")
@@ -177,9 +249,16 @@ namespace MechanicWebAppAPI.Migrations
                     b.Navigation("Repairs");
                 });
 
+            modelBuilder.Entity("MechanicWebAppAPI.Data.Models.ChatRoom", b =>
+                {
+                    b.Navigation("Messages");
+                });
+
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.User", b =>
                 {
                     b.Navigation("Cars");
+
+                    b.Navigation("Messages");
 
                     b.Navigation("Opinion");
                 });

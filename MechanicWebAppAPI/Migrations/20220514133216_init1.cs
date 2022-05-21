@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MechanicWebAppAPI.Migrations
 {
-    public partial class init : Migration
+    public partial class init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,6 +48,28 @@ namespace MechanicWebAppAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Message_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MessageSender = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserLastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageContext = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Message_id);
+                    table.ForeignKey(
+                        name: "FK_Messages_Users_MessageSender",
+                        column: x => x.MessageSender,
+                        principalTable: "Users",
+                        principalColumn: "User_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Opinions",
                 columns: table => new
                 {
@@ -75,7 +97,7 @@ namespace MechanicWebAppAPI.Migrations
                 {
                     Repair_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Repair_description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Repair_cost = table.Column<float>(type: "real", nullable: false),
+                    Repair_cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Repair_date = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Repaired_car_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
@@ -94,6 +116,11 @@ namespace MechanicWebAppAPI.Migrations
                 name: "IX_Cars_Car_user_id",
                 table: "Cars",
                 column: "Car_user_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Messages_MessageSender",
+                table: "Messages",
+                column: "MessageSender");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Opinions_Opinion_user_id",
@@ -116,6 +143,9 @@ namespace MechanicWebAppAPI.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Messages");
+
             migrationBuilder.DropTable(
                 name: "Opinions");
 

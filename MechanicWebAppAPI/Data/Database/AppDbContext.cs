@@ -12,6 +12,8 @@ namespace MechanicWebAppAPI.Data.Database
         public DbSet<Car> Cars { get; set; }
         public DbSet<Opinion> Opinions { get; set; }
         public DbSet<Repair> Repairs { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<ChatRoom> ChatRooms { get; set; }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,6 +38,16 @@ namespace MechanicWebAppAPI.Data.Database
             modelBuilder.Entity<Opinion>()
                 .HasIndex(p => p.Opinion_user_id)
                 .IsUnique();
+            modelBuilder.Entity<Message>()
+                .HasOne<User>(a => a.User)
+                .WithMany(m => m.Messages)
+                .HasForeignKey(m => m.MessageSender)
+                .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<ChatRoom>()
+                .HasMany(m => m.Messages)
+                .WithOne(r => r.ChatRoom)
+                .HasForeignKey(m => m.Room_id)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }
