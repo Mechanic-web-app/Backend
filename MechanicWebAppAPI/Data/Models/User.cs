@@ -22,10 +22,6 @@ namespace MechanicWebAppAPI.Data.Models
         public ICollection<Car> Cars { get; set; }
         [JsonIgnore]
         public virtual Opinion Opinion { get; set; }
-        [JsonIgnore]
-        public virtual ICollection<Message> Messages { get; set; }
-
-
 
     }
 }

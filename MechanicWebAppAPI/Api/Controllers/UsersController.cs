@@ -47,7 +47,13 @@ namespace MechanicWebAppAPI.Controllers
             return await _userRepository.Update(User_id, request);
 
         }
-        
+        [HttpPut("profileUpdate/{User_id}")]
+        public async Task<bool> ProfileUpdate( Guid User_id, ProfileUpdateRequest updateRequest)
+        {
+            return await _userRepository.ProfileUpdate(User_id, updateRequest);
+
+        }
+
         [HttpDelete("{User_id}")]
         public async Task<bool> Delete(Guid User_id)
         {

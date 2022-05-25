@@ -9,7 +9,7 @@ namespace MechanicWebAppAPI.Data.Models
     public class ChatRoom
     {
         [Key]
-        public Guid Room_id { get; set; }
+        public Guid ChatRoom_id { get; set; }
         public string RoomName { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
     }

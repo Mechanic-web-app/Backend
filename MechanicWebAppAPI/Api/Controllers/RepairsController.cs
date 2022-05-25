@@ -54,7 +54,7 @@ namespace MechanicWebAppAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{Repair_id}")]
         public async Task<ActionResult> Delete(Guid Repair_id)
         {
             var repairToDelete = await _repairRepository.Get(Repair_id);

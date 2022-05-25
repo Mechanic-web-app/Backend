@@ -16,7 +16,7 @@ namespace MechanicWebAppAPI.Data.Database
         {
             if (context.Users.Count() == 0)
             {
-                var user = context.Users.Add(new User()
+                context.Users.Add(new User()
                 {
                     Email = "admin@mechanicapp.com",
                     Role = Role.Admin,
@@ -28,7 +28,7 @@ namespace MechanicWebAppAPI.Data.Database
                     Phone_number = "123456789"
 
                 });
-                var user2 = context.Users.Add(new User()
+                context.Users.Add(new User()
                 {
                     Email = "Employee@mechanicapp.com",
                     Role = Role.Employee,
@@ -39,7 +39,7 @@ namespace MechanicWebAppAPI.Data.Database
                     Token = Guid.Empty,
                     Phone_number = "123456789"
                 });
-                var user3 = context.Users.Add(new User()
+                context.Users.Add(new User()
                 {
                     Email = "Testuser@mechanicapp.com",
                     Role = Role.User,

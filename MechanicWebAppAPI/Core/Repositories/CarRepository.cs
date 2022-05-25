@@ -29,11 +29,12 @@ namespace MechanicWebAppAPI.Core.Repositories
             return _mapper.Map<Car, CarDto>(carDto);
         }
 
-        public async Task Delete(Guid Car_id)
+        public async Task<bool> Delete(Guid Car_id)
         {
             var carToDelete = await _context.Cars.FindAsync(Car_id);
             _context.Cars.Remove(carToDelete);
             await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<CarDto>> Get()

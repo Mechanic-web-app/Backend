@@ -3,10 +3,22 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MechanicWebAppAPI.Migrations
 {
-    public partial class init1 : Migration
+    public partial class Init1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ChatRooms",
+                columns: table => new
+                {
+                    ChatRoom_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ChatRooms", x => x.ChatRoom_id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
@@ -27,6 +39,30 @@ namespace MechanicWebAppAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Messages",
+                columns: table => new
+                {
+                    Message_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Room_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MessageSender = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MessageReceiver = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UserLastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageContext = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageTime = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Messages", x => x.Message_id);
+                    table.ForeignKey(
+                        name: "FK_Messages_ChatRooms_Room_id",
+                        column: x => x.Room_id,
+                        principalTable: "ChatRooms",
+                        principalColumn: "ChatRoom_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Cars",
                 columns: table => new
                 {
@@ -42,28 +78,6 @@ namespace MechanicWebAppAPI.Migrations
                     table.ForeignKey(
                         name: "FK_Cars_Users_Car_user_id",
                         column: x => x.Car_user_id,
-                        principalTable: "Users",
-                        principalColumn: "User_id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Messages",
-                columns: table => new
-                {
-                    Message_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    MessageSender = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserLastname = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MessageContext = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    MessageTime = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Messages", x => x.Message_id);
-                    table.ForeignKey(
-                        name: "FK_Messages_Users_MessageSender",
-                        column: x => x.MessageSender,
                         principalTable: "Users",
                         principalColumn: "User_id",
                         onDelete: ReferentialAction.Cascade);
@@ -118,9 +132,9 @@ namespace MechanicWebAppAPI.Migrations
                 column: "Car_user_id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Messages_MessageSender",
+                name: "IX_Messages_Room_id",
                 table: "Messages",
-                column: "MessageSender");
+                column: "Room_id");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Opinions_Opinion_user_id",
@@ -151,6 +165,9 @@ namespace MechanicWebAppAPI.Migrations
 
             migrationBuilder.DropTable(
                 name: "Repairs");
+
+            migrationBuilder.DropTable(
+                name: "ChatRooms");
 
             migrationBuilder.DropTable(
                 name: "Cars");

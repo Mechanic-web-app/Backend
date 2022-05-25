@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MechanicWebAppAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220515131354_init2")]
-    partial class init2
+    [Migration("20220525122432_Init1")]
+    partial class Init1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,14 +48,14 @@ namespace MechanicWebAppAPI.Migrations
 
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.ChatRoom", b =>
                 {
-                    b.Property<Guid>("Room_id")
+                    b.Property<Guid>("ChatRoom_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RoomName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Room_id");
+                    b.HasKey("ChatRoom_id");
 
                     b.ToTable("ChatRooms");
                 });
@@ -87,12 +87,9 @@ namespace MechanicWebAppAPI.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Message_id");
-
-                    b.HasIndex("MessageSender");
 
                     b.HasIndex("Room_id");
 
@@ -205,12 +202,6 @@ namespace MechanicWebAppAPI.Migrations
 
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Message", b =>
                 {
-                    b.HasOne("MechanicWebAppAPI.Data.Models.User", "User")
-                        .WithMany("Messages")
-                        .HasForeignKey("MessageSender")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("MechanicWebAppAPI.Data.Models.ChatRoom", "ChatRoom")
                         .WithMany("Messages")
                         .HasForeignKey("Room_id")
@@ -218,8 +209,6 @@ namespace MechanicWebAppAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("ChatRoom");
-
-                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.Opinion", b =>
@@ -257,8 +246,6 @@ namespace MechanicWebAppAPI.Migrations
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.User", b =>
                 {
                     b.Navigation("Cars");
-
-                    b.Navigation("Messages");
 
                     b.Navigation("Opinion");
                 });

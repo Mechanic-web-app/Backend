@@ -38,11 +38,6 @@ namespace MechanicWebAppAPI.Data.Database
             modelBuilder.Entity<Opinion>()
                 .HasIndex(p => p.Opinion_user_id)
                 .IsUnique();
-            modelBuilder.Entity<Message>()
-                .HasOne<User>(a => a.User)
-                .WithMany(m => m.Messages)
-                .HasForeignKey(m => m.MessageSender)
-                .OnDelete(DeleteBehavior.Cascade);
             modelBuilder.Entity<ChatRoom>()
                 .HasMany(m => m.Messages)
                 .WithOne(r => r.ChatRoom)

@@ -16,8 +16,6 @@ namespace MechanicWebAppAPI.Data.Models
         public Guid MessageSender { get; set; }
         [Required]
         public Guid MessageReceiver { get; set; }
-        public virtual User User { get; set; }
-        [Required]
         public string UserName { get; set; }
         [Required]
         public string UserLastname { get; set; }

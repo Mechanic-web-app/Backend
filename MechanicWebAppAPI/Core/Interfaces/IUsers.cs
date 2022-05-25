@@ -16,7 +16,7 @@ namespace MechanicWebAppAPI.Core.Interfaces
         Task<IEnumerable<UserDto>> GetByNotConfirmed(bool User_confirmed);
         Task<User> Get(Guid User_id);
         Task<bool> Update(Guid User_id, ConfirmUserRequest request);
-
+        Task<bool> ProfileUpdate(Guid User_id, ProfileUpdateRequest updateRequest);
         Task<bool> Delete(Guid User_id);
         Task<IEnumerable<UserDto>> Get();
     }

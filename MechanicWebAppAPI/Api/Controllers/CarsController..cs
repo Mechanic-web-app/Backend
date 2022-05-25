@@ -56,15 +56,15 @@ namespace MechanicWebAppAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(Guid Car_id)
+        [HttpDelete("{Car_id}")]
+        public async Task<bool> Delete(Guid Car_id)
         {
             var carToDelete = await _carRepository.Get(Car_id);
             if (carToDelete == null)
-                return NotFound();
+                return false;
 
             await _carRepository.Delete(carToDelete.Car_id);
-            return NoContent();
+            return true;
         }
     }
 }

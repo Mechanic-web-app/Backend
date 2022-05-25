@@ -272,3 +272,8 @@ packages/*
 dot.net.websites/APP2.PK/Bin/APP2.PK.*
 *.Log
 /APP2.PK.WebApplication/Properties/PublishProfiles
+/MechanicWebAppAPI/ApiClassDiagram.cd
+/MechanicWebAppAPI/CodeMetricsConfig.txt
+/MechanicWebAppAPI/CommonClassDiagram.cd
+/MechanicWebAppAPI/CoreClassDiagram.cd
+/MechanicWebAppAPI/DataClassDiagram.cd

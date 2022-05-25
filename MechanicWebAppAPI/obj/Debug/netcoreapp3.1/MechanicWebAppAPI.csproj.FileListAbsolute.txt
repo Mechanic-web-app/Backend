@@ -9,6 +9,7 @@ G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Mech
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\MechanicWebAppAPI.pdb
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\AutoMapper.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Castle.Core.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Humanizer.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNet.SignalR.Core.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
@@ -16,6 +17,7 @@ G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Micr
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.InMemory.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll
@@ -34,6 +36,7 @@ G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Micr
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Moq.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Namotion.Reflection.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\NJsonSchema.dll
@@ -54,6 +57,9 @@ G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\Syst
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\System.Runtime.Caching.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\System.Security.Cryptography.ProtectedData.dll
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\xunit.abstractions.dll
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\xunit.assert.dll
+G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\xunit.core.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\YamlDotNet.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll
 G:\Repos\Mechanic-web-app\Backend\MechanicWebAppAPI\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Data.SqlClient.dll

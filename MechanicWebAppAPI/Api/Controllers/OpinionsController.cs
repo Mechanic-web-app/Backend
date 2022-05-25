@@ -49,15 +49,15 @@ namespace MechanicWebAppAPI.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult> Delete(Guid Opinion_id)
+        [HttpDelete("{Opinion_id}")]
+        public async Task<bool> Delete(Guid Opinion_id)
         {
             var opinionToDelete = await _opinionRepository.Get(Opinion_id);
             if (opinionToDelete == null)
-                return NotFound();
+                return false;
 
             await _opinionRepository.Delete(opinionToDelete.Opinion_id);
-            return NoContent();
+            return true;
         }
     }
 }

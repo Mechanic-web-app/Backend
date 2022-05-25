@@ -28,11 +28,12 @@ namespace MechanicWebAppAPI.Core.Repositories
             return _mapper.Map<Opinion, OpinionDto>(opinionDto);
         }
 
-        public async Task Delete(Guid Opinion_id)
+        public async Task<bool> Delete(Guid Opinion_id)
         {
             var opinionToDelete = await _context.Opinions.FindAsync(Opinion_id);
             _context.Opinions.Remove(opinionToDelete);
             await _context.SaveChangesAsync();
+            return true;
         }
 
         public async Task<IEnumerable<OpinionDto>> Get()

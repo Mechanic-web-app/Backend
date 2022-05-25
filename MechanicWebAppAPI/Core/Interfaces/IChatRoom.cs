@@ -12,6 +12,7 @@ namespace MechanicWebAppAPI.Core.Interfaces
     {
         Task<ChatRoomDto> Create(CreateChatRoomRequest request);
         Task<IEnumerable<ChatRoomDto>> Get();
-        Task<ChatRoom> Get(Guid Room_id);
+        Task<ChatRoom> Get(Guid ChatRoom_id);
+        Task<bool> Delete(Guid ChatRoom_id);
     }
 }

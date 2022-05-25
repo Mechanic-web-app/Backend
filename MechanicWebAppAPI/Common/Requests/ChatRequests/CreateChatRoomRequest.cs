@@ -9,7 +9,7 @@ namespace MechanicWebAppAPI.Common.Requests.ChatRequests
     public class CreateChatRoomRequest
     {
         [Required]
-        public Guid Room_id { get; set; }
+        public Guid ChatRoom_id { get; set; }
         [Required]
         public string RoomName { get; set; }
     }

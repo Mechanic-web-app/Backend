@@ -19,6 +19,6 @@ namespace MechanicWebAppAPI.Core.Interfaces
 
         Task Update(Car car);
 
-        Task Delete(Guid Car_id);
+        Task<bool> Delete(Guid Car_id);
     }
 }

@@ -28,9 +28,16 @@ namespace MechanicWebAppAPI.Core.Repositories
         {
             return await _context.ChatRooms.Select(chatRoom => _mapper.Map<ChatRoom, ChatRoomDto>(chatRoom)).ToListAsync();
         }
-        public async Task<ChatRoom> Get(Guid Car_id)
+        public async Task<ChatRoom> Get(Guid ChatRoom_id)
         {
-            return await _context.ChatRooms.FindAsync(Car_id);
+            return await _context.ChatRooms.FindAsync(ChatRoom_id);
+        }
+        public async Task<bool> Delete(Guid ChatRoom_id)
+        {
+            var chatRoomToDelete = await _context.ChatRooms.FindAsync(ChatRoom_id);
+            _context.ChatRooms.Remove(chatRoomToDelete);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

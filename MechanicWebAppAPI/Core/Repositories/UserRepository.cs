@@ -66,6 +66,20 @@ namespace MechanicWebAppAPI.Core.Repositories
             await _context.SaveChangesAsync().ConfigureAwait(false);
             return true;
         }
+        public async Task<bool> ProfileUpdate(Guid User_id,ProfileUpdateRequest updateRequest)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.User_id == User_id);
+            if (user == null)
+                throw new ServiceLayerException(HttpStatusCode.NotFound, "User not found");
+
+            user.Email = updateRequest.Email;
+            user.Name = updateRequest.Name;
+                user.Lastname = updateRequest.Lastname;
+                user.Phone_number = updateRequest.Phone_number;
+                user.Email = updateRequest.Email;
+        await _context.SaveChangesAsync().ConfigureAwait(false);
+            return true;
+        }
 
 
     }
