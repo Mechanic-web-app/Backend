@@ -41,7 +41,7 @@ namespace MechanicWebAppAPI
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:8080");
+                        builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("https://mechanic-web-app.github.io", "http://localhost:8080");
                     });
             });
             var appSettings = appSettingsSection.Get<AppSettings>();
