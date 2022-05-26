@@ -130,7 +130,8 @@ namespace MechanicWebAppAPI.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Repair_cost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasPrecision(9, 2)
+                        .HasColumnType("decimal(9,2)");
 
                     b.Property<string>("Repair_date")
                         .HasColumnType("nvarchar(max)");

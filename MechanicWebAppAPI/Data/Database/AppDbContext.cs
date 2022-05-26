@@ -43,6 +43,7 @@ namespace MechanicWebAppAPI.Data.Database
                 .WithOne(r => r.ChatRoom)
                 .HasForeignKey(m => m.Room_id)
                 .OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Repair>().Property(r=> r.Repair_cost).HasPrecision(9, 2);
 
         }
     }
