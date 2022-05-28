@@ -31,7 +31,7 @@ namespace Core.Tests.RepositoryTests
 
             var request = new CreateChatRoomRequest()
             {
-                ChatRoom_id = Guid.NewGuid(),
+                Room_id = Guid.NewGuid(),
                 RoomName = roomname
             };
             var result = await _chatroomRepository.Create(request).ConfigureAwait(false);
@@ -42,14 +42,14 @@ namespace Core.Tests.RepositoryTests
         [InlineData(true)]
         public async void DeleteChatRoomTest(bool expected)
         {
-            var guid = _contextBuilder.Context.ChatRooms.FirstOrDefault(i => i.ChatRoom_id != Guid.Empty)?.ChatRoom_id ?? Guid.Empty;
+            var guid = _contextBuilder.Context.ChatRooms.FirstOrDefault(i => i.Room_id != Guid.Empty)?.Room_id ?? Guid.Empty;
             var result = await _chatroomRepository.Delete(guid).ConfigureAwait(false);
             Assert.Equal(expected, result);
         }
         [Fact]
         public async void GetChatRoomTest()
         {
-            var guid = _contextBuilder.Context.ChatRooms.FirstOrDefault(i => i.ChatRoom_id != Guid.Empty)?.ChatRoom_id ?? Guid.Empty;
+            var guid = _contextBuilder.Context.ChatRooms.FirstOrDefault(i => i.Room_id != Guid.Empty)?.Room_id ?? Guid.Empty;
             var result = await _chatroomRepository.Get(guid).ConfigureAwait(false);
             Assert.IsType<ChatRoom>(result);
         }

@@ -46,14 +46,14 @@ namespace MechanicWebAppAPI.Migrations
 
             modelBuilder.Entity("MechanicWebAppAPI.Data.Models.ChatRoom", b =>
                 {
-                    b.Property<Guid>("ChatRoom_id")
+                    b.Property<Guid>("Room_id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("RoomName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("ChatRoom_id");
+                    b.HasKey("Room_id");
 
                     b.ToTable("ChatRooms");
                 });

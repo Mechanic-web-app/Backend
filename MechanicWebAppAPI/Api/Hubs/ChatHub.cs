@@ -29,7 +29,7 @@ namespace MechanicWebAppAPI.Api.Hubs
             
             if (request != null)
             {
-                var roomId = request.ChatRoom_id.ToString();
+                var roomId = request.Room_id.ToString();
                 ConnectionObserver.ConnectionStates[Context.ConnectionId] = new CallerEntry
                 {
                     Group = roomId,
@@ -39,7 +39,7 @@ namespace MechanicWebAppAPI.Api.Hubs
                 };
                 if (connRequest.CallerId == roomId)
                 {
-                    var checkRoom = await _chatRoomRepository.Get(request.ChatRoom_id);
+                    var checkRoom = await _chatRoomRepository.Get(request.Room_id);
                     if (checkRoom == null)
                     {
 
@@ -49,7 +49,7 @@ namespace MechanicWebAppAPI.Api.Hubs
 
                 await Groups.AddToGroupAsync(Context.ConnectionId, roomId);
                 
-                var messages = await _chatRepository.GetMessagesByRoomId(request.ChatRoom_id);
+                var messages = await _chatRepository.GetMessagesByRoomId(request.Room_id);
                 await Clients.Caller.RefreshMessagesList(messages);
 
                 await Clients.Caller.ConnectMessage("Chat joined successfully", MessageType.Success);

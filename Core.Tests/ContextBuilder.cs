@@ -77,7 +77,7 @@ namespace Core.Tests
             }).ConfigureAwait(false);
             await Context.ChatRooms.AddAsync(new ChatRoom()
             {
-                ChatRoom_id = Guid.NewGuid(),
+                Room_id = Guid.NewGuid(),
                 RoomName = "Example"
             }).ConfigureAwait(false);
             Context.Entry(new ChatRoom()).State = EntityState.Detached;

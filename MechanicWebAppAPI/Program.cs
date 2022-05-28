@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace MechanicWebAppAPI
 {
@@ -13,8 +14,11 @@ namespace MechanicWebAppAPI
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
-                {
+                {   // uncomment this two lines, to deploy on heroku
+                    //  var port = Environment.GetEnvironmentVariable("PORT");
+
                     webBuilder.UseStartup<Startup>();
+                   // .UseUrls("http://*:" + port);
                 });
     }
 }

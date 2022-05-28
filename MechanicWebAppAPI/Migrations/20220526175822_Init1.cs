@@ -11,12 +11,12 @@ namespace MechanicWebAppAPI.Migrations
                 name: "ChatRooms",
                 columns: table => new
                 {
-                    ChatRoom_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Room_id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RoomName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ChatRooms", x => x.ChatRoom_id);
+                    table.PrimaryKey("PK_ChatRooms", x => x.Room_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,7 +58,7 @@ namespace MechanicWebAppAPI.Migrations
                         name: "FK_Messages_ChatRooms_Room_id",
                         column: x => x.Room_id,
                         principalTable: "ChatRooms",
-                        principalColumn: "ChatRoom_id",
+                        principalColumn: "Room_id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

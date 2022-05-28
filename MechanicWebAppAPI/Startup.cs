@@ -34,16 +34,17 @@ namespace MechanicWebAppAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(
                     builder =>
                     {
-                        builder.AllowAnyMethod().AllowAnyHeader().AllowCredentials().WithOrigins("http://localhost:8080");
+                        builder.WithOrigins("https://mechanic-web-app.github.io","http://localhost:8080").AllowAnyMethod().AllowAnyHeader().AllowCredentials();
                     });
             });
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+            
             var appSettings = appSettingsSection.Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAutoMapper(typeof(AutoMapping));
@@ -97,10 +98,16 @@ namespace MechanicWebAppAPI
         }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext context)
         {
+            app.UseCors();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedProto
+            });
             app.UseOpenApi(options =>
             {
                 options.DocumentName = "swagger";
@@ -108,15 +115,10 @@ namespace MechanicWebAppAPI
                 options.PostProcess = (document, _) => document.Schemes.Add(NSwag.OpenApiSchema.Https);
             });
 
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedProto
-            });
             app.UseSwaggerUi3(options => options.DocumentPath = "/swagger/v1/swagger.json");
             app.UseRouting();
-            app.UseCors();
-            app.UseHttpsRedirection();
 
+            app.UseHttpsRedirection();
             app.UseAuthorization();
             DatabaseSeeder.SeedData(context);
             app.UseEndpoints(endpoints =>

@@ -30,20 +30,20 @@ namespace MechanicWebAppAPI.Api.Controllers
         {
             return await _chatRoomRepository.Get();
         }
-        [HttpGet("{ChatRoom_id}")]
-        public async Task<ActionResult<ChatRoom>> Get(Guid ChatRoom_id)
+        [HttpGet("{Room_id}")]
+        public async Task<ActionResult<ChatRoom>> Get(Guid Room_id)
         {
-            return await _chatRoomRepository.Get(ChatRoom_id);
+            return await _chatRoomRepository.Get(Room_id);
         }
 
-        [HttpDelete("{ChatRoom_id}")]
-        public async Task<bool> Delete(Guid ChatRoom_id)
+        [HttpDelete("{Room_id}")]
+        public async Task<bool> Delete(Guid Room_id)
         {
-            var chatRoomToDelete = await _chatRoomRepository.Get(ChatRoom_id);
+            var chatRoomToDelete = await _chatRoomRepository.Get(Room_id);
             if (chatRoomToDelete == null)
                 return false;
 
-            await _chatRoomRepository.Delete(chatRoomToDelete.ChatRoom_id);
+            await _chatRoomRepository.Delete(chatRoomToDelete.Room_id);
             return true;
         }
 

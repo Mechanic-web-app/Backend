@@ -29,7 +29,7 @@ namespace Core.Tests.RepositoryTests
         [InlineData("Example", "Example", "Example")]
         public async void SendMessageTest(string context, string lastname, string name)
         {
-            var chatguid = _contextBuilder.Context.ChatRooms.FirstOrDefault(i => i.ChatRoom_id != Guid.Empty)?.ChatRoom_id ?? Guid.Empty;
+            var chatguid = _contextBuilder.Context.ChatRooms.FirstOrDefault(i => i.Room_id != Guid.Empty)?.Room_id ?? Guid.Empty;
             var guid = _contextBuilder.Context.Users.FirstOrDefault(i => i.User_id != Guid.Empty)?.User_id ?? Guid.Empty;
             var request = new SendMessageRequest()
             {
